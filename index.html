@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Graceful Boundaries &mdash; API Limit Communication Specification</title>
-  <meta name="description" content="Graceful Boundaries 1.4.0 is a specification for communicating operational limits, refusals, constructive guidance, and optional agent action boundaries.">
+  <meta name="description" content="Graceful Boundaries 1.4.1 is a specification for communicating operational limits, refusals, constructive guidance, and optional agent action boundaries.">
   <meta name="keywords" content="graceful boundaries, rate limiting, 429, API errors, structured refusal, agentic APIs, autonomous agents, RateLimit headers, action boundaries, commercial boundaries, RFC 9457, problem details, API specification">
   <meta name="author" content="Sam Rogers">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -508,9 +508,9 @@
       <span class="sep">&middot;</span>
       Published <time datetime="2026-03-15">March 15, 2026</time>
       <span class="sep">&middot;</span>
-      Updated <time datetime="2026-05-29">May 29, 2026</time>
+      Updated <time datetime="2026-06-03">June 3, 2026</time>
       <span class="sep">&middot;</span>
-      <span class="version">v1.4.0</span>
+      <span class="version">v1.4.1</span>
       <span class="sep">&middot;</span>
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC&nbsp;BY&nbsp;4.0</a>
     </p>
@@ -645,8 +645,8 @@
 
 <section class="alt" id="extensions">
   <div class="container">
-    <h2>Current in v1.4.0</h2>
-    <p>Graceful Boundaries 1.4.0 keeps the Level 1 through Level 4 conformance model unchanged and adds optional metadata for services with quota, cost, size, queue, or multi-limit constraints.</p>
+    <h2>Current in v1.4</h2>
+    <p>Graceful Boundaries 1.4 keeps the Level 1 through Level 4 conformance model unchanged and adds optional metadata for services with quota, cost, size, queue, or multi-limit constraints. v1.4.1 (2026-06-03) is a structural release with no normative spec changes; it adds INTENT.md, CONFORMANCE.md, RELEASE_CHECKLIST.md, MANIFEST.yaml, and a code/spec license split.</p>
 
     <div class="code-grid">
       <div class="code-block">
@@ -750,7 +750,7 @@ See spec for response class requirements and constructive guidance.</pre>
   <div class="container">
     <div class="eval-block">
       <h2>Evaluate your API</h2>
-      <p>The conformance checker validates any public URL against the spec. Version 1.4.0 includes stricter response-field checks, hardened URL checks, optional cost and quota metadata checks, advisory content-cloaking checks, and optional Action Boundaries validation. No dependencies required.</p>
+      <p>The conformance checker validates any public URL against the spec. Version 1.4 includes stricter response-field checks, hardened URL checks, optional cost and quota metadata checks, advisory content-cloaking checks, and optional Action Boundaries validation. No dependencies required.</p>
 <pre>git clone https://github.com/snapsynapse/graceful-boundaries.git
 cd graceful-boundaries
 node evals/check.js https://your-service.com
@@ -783,7 +783,7 @@ python3 /path/to/guidecheck/scripts/guidecheck_verify.py assistant-guide.txt</pr
   <div class="container">
     <div class="footer-grid">
       <div class="footer-meta">
-        <p>Graceful Boundaries v1.4.0 &middot; <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC-BY-4.0</a></p>
+        <p>Graceful Boundaries v1.4.1 &middot; <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC-BY-4.0</a> (spec) &middot; <a href="https://github.com/snapsynapse/graceful-boundaries/blob/main/LICENSE" rel="license">MIT</a> (code)</p>
         <p>A <a href="https://paice.work/" target="_blank" rel="noopener">PAICE.work</a> project.</p>
         <p style="margin-top: 0.5rem;">See also: <a href="https://guidecheck.org/" target="_blank" rel="noopener">GuideCheck</a> &middot; <a href="https://knowledge-as-code.com/" target="_blank" rel="noopener">Knowledge as Code</a> &middot; <a href="https://skillprovenance.dev/" target="_blank" rel="noopener">Skill Provenance</a></p>
       </div>

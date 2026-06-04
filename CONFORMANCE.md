@@ -72,4 +72,4 @@ When `evals/check.js` reports a level lower than claimed, file a finding in the 
 
 ## Versioning
 
-Conformance is versioned with the spec. A service claiming "Level 3 conformance" SHOULD specify the spec version (e.g. "Level 3 against Graceful Boundaries 1.4.0"). Major spec version increments require re-evaluation; minor and patch versions are backward-compatible.
+Conformance is versioned with the spec. A service claiming "Level 3 conformance" SHOULD specify the spec version (e.g. "Level 3 against Graceful Boundaries 1.4.1"). Major spec version increments require re-evaluation; minor and patch versions are backward-compatible.

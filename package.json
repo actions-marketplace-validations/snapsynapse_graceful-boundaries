@@ -1,8 +1,8 @@
 {
   "name": "graceful-boundaries",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A specification for how services communicate their operational limits to humans and autonomous agents.",
-  "license": "CC-BY-4.0",
+  "license": "CC-BY-4.0 AND MIT",
   "scripts": {
     "test": "node evals/test-refusal.js && node evals/test-response-classes.js && node evals/test-security.js && node evals/test-conformance.js && node evals/test-discovery.js && node evals/test-action-boundaries.js && node evals/test-proactive-headers.js && node evals/test-html-refusal.js && node evals/test-agentic-surfaces.js",
     "test:html": "node evals/test-html-refusal.js",

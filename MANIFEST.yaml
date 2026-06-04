@@ -8,7 +8,7 @@ bundle: graceful-boundaries
 home: https://github.com/snapsynapse/graceful-boundaries
 canonical_url: https://gracefulboundaries.dev/
 spec_url: https://gracefulboundaries.dev/spec
-spec_version: 1.4.0
+spec_version: 1.4.1
 license_code: MIT
 license_spec: CC-BY-4.0
 manifest_version: 1

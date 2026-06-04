@@ -1,6 +1,6 @@
 # Action Boundaries Draft
 
-Status: draft for Graceful Boundaries 1.4.0.
+Status: draft for Graceful Boundaries 1.4.1.
 
 Action Boundaries is an optional extension to Graceful Boundaries. It describes what autonomous agents may do, what requires approval, what recourse exists, and what audit trail is produced when an action has real consequences.
 

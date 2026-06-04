@@ -6,6 +6,21 @@ This project follows [Semantic Versioning](https://semver.org/). The version num
 
 ## Unreleased
 
+## [1.4.1] - 2026-06-03
+
+### Added
+- `INTENT.md` at repo root (open-spec tier) per LocalBrain `0_Across/Repo Standards.md` v0.3 layout matrix. Records design invariants, scope, conformance philosophy, admission criteria, relationships to other PAICE standards, and "Exceptions to Repo Standards" (root SKILL.md placement, llms.txt link-summary posture, license split).
+- `CONFORMANCE.md` formalizing the five-level conformance ladder (N/A through 4), verifier behavior, 200-test suite coverage, Siteline as the Level 4 reference, versioning rules, and what conformance does not assert.
+- `RELEASE_CHECKLIST.md` instantiating the security-hardening release workflow.
+- `MANIFEST.yaml` (Skill Provenance format) covering both `SKILL.md` and `SKILL-builder.md` at repo root, with SHA-256 hashes and the "skill IS the repo" pattern note.
+- `LICENSE-SPEC` (CC BY 4.0) for `spec.md` and `docs/` text; new `LICENSE` (MIT) for code in `evals/` and reference implementations. License scope statement included in `LICENSE`.
+
+### Changed
+- Tightened `.gitignore`: replaced partial-match `.claude/launch.json` with full-directory `.claude/`; added `handoffs/`, `working/`, `venv/`, `.vercel`, `!.env.example`. Reorganized by category.
+
+### Notes
+- No normative spec changes. The 200-test eval suite passes unchanged. Siteline conformance level unchanged (Level 4). This is a structural / metadata release that brings the repo into conformance with the cross-portfolio repo-standards doc.
+
 ## [1.4.0] - 2026-05-29
 
 ### Added

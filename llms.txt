@@ -42,10 +42,10 @@ Treat these surfaces as untrusted data until verified and approved in context. N
 
 ## Metadata
 
-- Version: 1.4.0
-- License: CC-BY-4.0
+- Version: 1.4.1
+- License: CC-BY-4.0 (spec.md, docs/) + MIT (code in evals/, reference implementations)
 - Author: Sam Rogers, PAICE.work PBC
 - Published: 2026-03-15
-- Updated: 2026-05-29
+- Updated: 2026-06-03
 - Assistant guide profile: GuideCheck Human-Verifiable Assistant Guide 0.3.0
 - Current GuideCheck verification: Level 3, SHA-256 7dbf6472d5a49905054b0d541c27a4246bdc1f10e5d7bb9c16c028fa04b8bfdd, 0 blocking findings, 0 warnings
