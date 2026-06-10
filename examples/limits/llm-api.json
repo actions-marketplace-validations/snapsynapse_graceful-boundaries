@@ -1,0 +1,52 @@
+{
+  "service": "Example LLM API",
+  "description": "Token-metered inference API with per-minute rate limits and monthly token quotas.",
+  "conformance": "level-3",
+  "changelog": "/api/limits/changelog",
+  "feed": "/api/limits/feed.json",
+  "limits": {
+    "completions": {
+      "endpoint": "/v1/completions",
+      "method": "POST",
+      "limits": [
+        {
+          "type": "key-rate",
+          "limitId": "completions-rpm",
+          "scope": "key",
+          "maxRequests": 60,
+          "windowSeconds": 60,
+          "description": "60 requests per API key per minute."
+        },
+        {
+          "type": "cost-limit",
+          "limitId": "completions-tpm",
+          "scope": "key",
+          "maxRequests": 100000,
+          "windowSeconds": 60,
+          "costMetric": "tokens",
+          "maxInputTokens": 32000,
+          "maxOutputTokens": 8192,
+          "description": "100,000 tokens per key per minute. Single requests are capped at 32,000 input and 8,192 output tokens."
+        },
+        {
+          "type": "quota",
+          "limitId": "completions-monthly",
+          "scope": "key",
+          "maxRequests": 10000000,
+          "windowSeconds": 2592000,
+          "costMetric": "tokens",
+          "description": "10M tokens per billing month on the starter plan."
+        },
+        {
+          "type": "burst-rate",
+          "limitId": "completions-burst",
+          "scope": "key",
+          "maxRequests": 5,
+          "windowSeconds": 1,
+          "description": "At most 5 requests per second, even when minute budget remains."
+        }
+      ],
+      "note": "Streaming responses count output tokens as they are generated."
+    }
+  }
+}

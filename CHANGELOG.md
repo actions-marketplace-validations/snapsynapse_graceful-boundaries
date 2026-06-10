@@ -6,6 +6,29 @@ This project follows [Semantic Versioning](https://semver.org/). The version num
 
 ## Unreleased
 
+## [1.5.0] - 2026-06-09
+
+### Added
+- **npm/npx distribution**: `bin/cli.js` entry point so the checker runs as `npx graceful-boundaries check <url>` with no clone or install. `files` whitelist keeps the package at ~35 kB.
+- **`--min-level N` checker flag**: exits nonzero when the confirmed level is below the threshold, making the checker usable as a CI gate.
+- **Published JSON Schemas** (`schema/`): `refusal.schema.json`, `refusal-429.schema.json`, and `limits.schema.json` (JSON Schema 2020-12), served at `https://gracefulboundaries.dev/schema/`. Required fields and enums are test-enforced to match the checker's validation rules.
+- **Drop-in middleware examples** (`examples/middleware/`): dependency-free Level 2 implementations (Level 4 with one flag) for Express, FastAPI, Cloudflare Workers, and Hono, each with a README and production notes. The Express example is exercised by unit tests.
+- **Worked limits.json examples** (`examples/limits/`): complete discovery responses for a SaaS API, free scanner, token-metered LLM API, and scraping-sensitive content site. All schema-validated in tests.
+- **Composite GitHub Action** (`action.yml`): `uses: snapsynapse/graceful-boundaries@v1` runs the checker against a URL with a `min-level` input for CI conformance gates.
+- **RFC 9457 compatibility profile** (`docs/rfc9457-profile.md`): expressing Graceful Boundaries fields as Problem Details extension members so `application/problem+json` APIs can adopt without changing content type.
+- **Agent compliance suite** (`evals/test-agent-behavior.js`): fixtures and a `runAgentComplianceSuite(handler)` runner validating agent-side handling — retryAfterSeconds as a minimum, cached-result preference, off-origin guidance URL rejection (SC-6), instruction-like guidance text ignored (SC-16), malformed retry values, header-only fallbacks, and proactive-header self-throttling.
+- **Adopter registry and badges**: `ADOPTERS.md` with a checker-verified registry policy, plus shields.io endpoint JSON at `badges/level-{1..4}.json` and `badges/not-applicable.json`.
+- Checker demo image (`imgs/checker-demo.svg`) showing real Level 4 vs Level 0 output.
+
+### Changed
+- Unit test suite expanded from 200 to 250 tests (12 files): new `test-schemas.js`, `test-middleware-examples.js`, and `test-agent-behavior.js`.
+- `evals/check.js` now exports `main` and accepts `--min-level`.
+- README gains "Adopt in an afternoon" (middleware, examples, schemas, CI gate, badges) and npx-first evaluation instructions.
+- `docs/agentic-surfaces.md` inventories the new machine-readable surfaces (schemas, badges, npx CLI, GitHub Action, agent compliance suite) with trust boundaries.
+
+### Notes
+- No normative spec changes. The Level 1 through Level 4 conformance model is unchanged. Siteline conformance level unchanged (Level 4, verified live during this release). This is an adoption-tooling release.
+
 ## [1.4.1] - 2026-06-03
 
 ### Added

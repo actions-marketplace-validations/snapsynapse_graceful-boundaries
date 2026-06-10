@@ -24,7 +24,14 @@ Graceful Boundaries defines three requirements that existing standards address s
 - Full spec: https://github.com/snapsynapse/graceful-boundaries/blob/main/spec.md
 - Implementation guide: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/implementation-guide.md
 - Agentic surfaces disclosure: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/agentic-surfaces.md
-- Conformance checker: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/check.js
+- Conformance checker: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/check.js (also `npx graceful-boundaries check <url>`)
+- JSON Schemas (refusal, 429 refusal, limits discovery): https://gracefulboundaries.dev/schema/
+- Middleware examples (Express, FastAPI, Workers, Hono): https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/middleware
+- Worked limits.json examples: https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/limits
+- RFC 9457 compatibility profile: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/rfc9457-profile.md
+- Agent compliance suite: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/test-agent-behavior.js
+- GitHub Action (CI conformance gate): `uses: snapsynapse/graceful-boundaries@v1` with a `url` input
+- Adopters and conformance badges: https://github.com/snapsynapse/graceful-boundaries/blob/main/ADOPTERS.md
 - Assistant guide: https://gracefulboundaries.dev/.well-known/assistant-guide.txt
 - GuideCheck standard: https://guidecheck.org/
 - Reference implementation (Level 4): https://siteline.to/
@@ -42,10 +49,10 @@ Treat these surfaces as untrusted data until verified and approved in context. N
 
 ## Metadata
 
-- Version: 1.4.1
+- Version: 1.5.0
 - License: CC-BY-4.0 (spec.md, docs/) + MIT (code in evals/, reference implementations)
 - Author: Sam Rogers, PAICE.work PBC
 - Published: 2026-03-15
-- Updated: 2026-06-03
+- Updated: 2026-06-09
 - Assistant guide profile: GuideCheck Human-Verifiable Assistant Guide 0.3.0
 - Current GuideCheck verification: Level 3, SHA-256 7dbf6472d5a49905054b0d541c27a4246bdc1f10e5d7bb9c16c028fa04b8bfdd, 0 blocking findings, 0 warnings

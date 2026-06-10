@@ -5,7 +5,7 @@ A specification for how services communicate their operational limits to humans 
 **[gracefulboundaries.dev](https://gracefulboundaries.dev)**
 
 [![License: CC-BY-4.0](https://img.shields.io/badge/License-CC--BY--4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Version](https://img.shields.io/badge/version-1.4.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](CHANGELOG.md)
 [![Tests](https://img.shields.io/github/actions/workflow/status/snapsynapse/graceful-boundaries/test.yml?label=tests)](https://github.com/snapsynapse/graceful-boundaries/actions)
 [![ClawHub](https://img.shields.io/badge/ClawHub-83%20installs-blue)](https://clawhub.ai/snapsynapse/graceful-boundaries)
 
@@ -129,22 +129,36 @@ Services self-declare a conformance level. The eval suite validates the claim.
 
 ## Evaluate conformance
 
-Clone the repo and run from the project root:
+Run the checker directly via npx (no install, no dependencies):
 
 ```bash
-git clone https://github.com/snapsynapse/graceful-boundaries.git
-cd graceful-boundaries
-node evals/check.js https://siteline.to          # Level 4 — proactive headers
-node evals/check.js https://google.com           # Level 0 — no conformance
-node evals/check.js https://your-service.com --json
-node evals/check.js https://your-service.com --check-cloaking
+npx graceful-boundaries check https://siteline.to     # Level 4 — proactive headers
+npx graceful-boundaries check https://google.com      # Level 0 — no conformance
+npx graceful-boundaries check https://your-service.com --json
+npx graceful-boundaries check https://your-service.com --min-level 2   # nonzero exit below Level 2
+npx graceful-boundaries check https://your-service.com --check-cloaking
 ```
 
-Run the unit test suite (200 tests, no dependencies):
+![Checker output: Siteline confirms Level 4, Google confirms Level 0](imgs/checker-demo.svg)
+
+Or clone and run from the project root with `node evals/check.js <url>`. Run the unit test suite (250 tests, no dependencies):
 
 ```bash
 npm test
 ```
+
+### Gate conformance in CI
+
+The repo doubles as a composite GitHub Action. Add a job that fails when your deployed service drops below its declared level:
+
+```yaml
+- uses: snapsynapse/graceful-boundaries@v1
+  with:
+    url: https://staging.your-service.com
+    min-level: "2"
+```
+
+Levels 2 and 4 are confirmable passively and make reliable CI gates; Levels 1 and 3 require observing a live refusal (see [CONFORMANCE.md](CONFORMANCE.md)).
 
 ## Assistant guide
 
@@ -169,6 +183,20 @@ The current GuideCheck implementation and all agent-facing repository surfaces a
 - **High-traffic API with agent callers?** Target **Level 4** (proactive headers) — callers self-throttle before hitting limits.
 
 For a step-by-step walkthrough with code samples, see the **[implementation guide](docs/implementation-guide.md)**.
+
+## Adopt in an afternoon
+
+The shortest path from "read the spec" to "conformant service":
+
+1. **Copy a middleware example** -- dependency-free Level 2 implementations (Level 4 with one flag) for [Express, FastAPI, Cloudflare Workers, and Hono](examples/middleware/).
+2. **Copy the nearest limits.json** -- complete discovery responses for a [SaaS API, free scanner, LLM API, and content site](examples/limits/).
+3. **Validate your bodies** -- published [JSON Schemas](schema/) for refusals, 429s, and the discovery endpoint, served at `https://gracefulboundaries.dev/schema/`. Importable into OpenAPI and CI validators.
+4. **Verify** -- `npx graceful-boundaries check https://your-service.example`, then gate it in CI with the GitHub Action above.
+5. **Declare** -- add yourself to [ADOPTERS.md](ADOPTERS.md) and embed a [conformance badge](ADOPTERS.md#badges).
+
+Already emitting RFC 9457 Problem Details? You can adopt without changing your content type: see the [RFC 9457 compatibility profile](docs/rfc9457-profile.md).
+
+Building the agent side? `evals/test-agent-behavior.js` is an [agent compliance suite](evals/test-agent-behavior.js): point it at your retry/refusal-handling logic and it checks you respect `retryAfterSeconds`, prefer cached results, ignore off-origin guidance URLs (SC-6), and treat guidance text as untrusted data (SC-16).
 
 ## Adopt the spec
 
@@ -199,15 +227,17 @@ See the **[full specification](spec.md)** for field definitions, response classe
 | RFC 9457 (Problem Details) | Generic error format | Required fields for rate limits (`limit`, `retryAfterSeconds`, `why`) and guidance categories |
 | OpenAPI Rate Limit extensions | Docs-time limit specs | Runtime discovery endpoint, runtime refusal format |
 
-Graceful Boundaries is complementary to these standards, not a replacement.
+Graceful Boundaries is complementary to these standards, not a replacement. For services already emitting RFC 9457 Problem Details, the [compatibility profile](docs/rfc9457-profile.md) shows how to satisfy both specs in one response body.
 
-## Reference implementation
+## Reference implementation and adopters
 
-[Siteline](https://siteline.to/) is a Level 4 conformant implementation with five API endpoints. Verify it from the project root:
+[Siteline](https://siteline.to/) is a Level 4 conformant implementation with five API endpoints. Verify it:
 
 ```bash
-node evals/check.js https://siteline.to
+npx graceful-boundaries check https://siteline.to
 ```
+
+Services implementing the spec are listed in [ADOPTERS.md](ADOPTERS.md), which also covers how to add yours and embed a conformance badge.
 
 ## Security
 

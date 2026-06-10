@@ -1,0 +1,38 @@
+name: "Graceful Boundaries Conformance Check"
+description: "Check a live service's Graceful Boundaries conformance level (limits discovery, structured refusals, proactive headers). Fails the job when the confirmed level is below min-level."
+author: "PAICE.work PBC"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  url:
+    description: "Base URL of the service to check, e.g. https://staging.example.com"
+    required: true
+  min-level:
+    description: "Minimum confirmed conformance level (0-4). The job fails below this. Note: Levels 1 and 3 require observing a live refusal and cannot be confirmed passively; 2 and 4 are the practical CI gates."
+    required: false
+    default: "0"
+  limits-path:
+    description: "Custom limits discovery path (default: /api/limits then /.well-known/limits)"
+    required: false
+    default: ""
+  json:
+    description: "Emit machine-readable JSON report to stdout (true/false)"
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run conformance check
+      shell: bash
+      run: |
+        ARGS=("${{ inputs.url }}" --min-level "${{ inputs.min-level }}")
+        if [ -n "${{ inputs.limits-path }}" ]; then
+          ARGS+=(--limits-path "${{ inputs.limits-path }}")
+        fi
+        if [ "${{ inputs.json }}" = "true" ]; then
+          ARGS+=(--json)
+        fi
+        node "${{ github.action_path }}/evals/check.js" "${ARGS[@]}"

@@ -1,0 +1,45 @@
+{
+  "service": "Example Scanner",
+  "description": "Free public scanner. One scan per target per day; repeat requests return the cached result.",
+  "conformance": "level-4",
+  "limits": {
+    "scan": {
+      "endpoint": "/api/scan",
+      "method": "GET",
+      "limits": [
+        {
+          "type": "ip-rate",
+          "limitId": "scan-ip-hourly",
+          "scope": "ip",
+          "maxRequests": 10,
+          "windowSeconds": 3600,
+          "description": "10 scans per IP per hour."
+        },
+        {
+          "type": "resource-dedup",
+          "limitId": "scan-target-daily",
+          "scope": "resource",
+          "maxRequests": 1,
+          "windowSeconds": 86400,
+          "returnsCached": true,
+          "description": "One scan per target per calendar day. Repeat requests return the cached result."
+        }
+      ]
+    },
+    "result": {
+      "endpoint": "/api/result",
+      "method": "GET",
+      "limits": [
+        {
+          "type": "ip-rate",
+          "limitId": "result-ip-minute",
+          "scope": "ip",
+          "maxRequests": 60,
+          "windowSeconds": 60,
+          "description": "60 result fetches per IP per minute."
+        }
+      ],
+      "note": "Results are kept for 30 days after scanning."
+    }
+  }
+}

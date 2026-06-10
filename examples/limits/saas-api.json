@@ -1,0 +1,60 @@
+{
+  "service": "Example SaaS API",
+  "description": "Multi-tenant project management API with free and paid tiers.",
+  "conformance": "level-3",
+  "changelog": "/api/limits/changelog",
+  "limits": {
+    "list-projects": {
+      "endpoint": "/api/v1/projects",
+      "method": "GET",
+      "limits": [
+        {
+          "type": "key-rate",
+          "limitId": "projects-read-minute",
+          "scope": "key",
+          "maxRequests": 120,
+          "windowSeconds": 60,
+          "description": "120 read requests per API key per minute."
+        }
+      ]
+    },
+    "create-project": {
+      "endpoint": "/api/v1/projects",
+      "method": "POST",
+      "limits": [
+        {
+          "type": "key-rate",
+          "limitId": "projects-write-minute",
+          "scope": "key",
+          "maxRequests": 20,
+          "windowSeconds": 60,
+          "description": "20 write requests per API key per minute."
+        },
+        {
+          "type": "quota",
+          "limitId": "projects-monthly-quota",
+          "scope": "key",
+          "maxRequests": 5000,
+          "windowSeconds": 2592000,
+          "description": "5,000 project creations per billing month on the free tier. Paid tiers raise this quota."
+        }
+      ],
+      "note": "Free tier. Upgrade for higher quotas: https://example.com/pricing"
+    },
+    "export": {
+      "endpoint": "/api/v1/export",
+      "method": "POST",
+      "limits": [
+        {
+          "type": "concurrency",
+          "limitId": "export-concurrency",
+          "scope": "key",
+          "maxRequests": 2,
+          "windowSeconds": 1,
+          "maxQueueDepth": 10,
+          "description": "2 concurrent exports per key; up to 10 queued."
+        }
+      ]
+    }
+  }
+}

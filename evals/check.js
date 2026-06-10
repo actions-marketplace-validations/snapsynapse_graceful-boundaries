@@ -33,11 +33,14 @@ const OPTIONAL_LIMIT_NUMBER_FIELDS = [
 
 function parseArgs(argv) {
   const args = argv.slice(2);
-  const options = { baseUrl: null, limitsPath: null, json: false, checkCloaking: false };
+  const options = { baseUrl: null, limitsPath: null, json: false, checkCloaking: false, minLevel: null };
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--limits-path" && i + 1 < args.length) {
       options.limitsPath = args[++i];
+    } else if (args[i] === "--min-level" && i + 1 < args.length) {
+      const parsed = Number.parseInt(args[++i], 10);
+      options.minLevel = Number.isInteger(parsed) ? parsed : null;
     } else if (args[i] === "--json") {
       options.json = true;
     } else if (args[i] === "--check-cloaking") {
@@ -931,11 +934,12 @@ async function main() {
   const options = parseArgs(process.argv);
 
   if (!options.baseUrl) {
-    console.error("Usage: node evals/check.js <base-url> [--limits-path /path] [--json] [--check-cloaking]");
+    console.error("Usage: node evals/check.js <base-url> [--limits-path /path] [--json] [--check-cloaking] [--min-level N]");
     console.error("");
     console.error("Examples:");
     console.error("  node evals/check.js https://siteline.to");
     console.error("  node evals/check.js https://your-api.com --limits-path /.well-known/limits --json");
+    console.error("  node evals/check.js https://your-api.com --min-level 2");
     process.exit(1);
   }
 
@@ -1115,9 +1119,21 @@ async function main() {
       report.notes.forEach((n) => console.log(`  - ${n}`));
     }
   }
+
+  if (options.minLevel !== null) {
+    const confirmed = report.conformanceLevel === "not-applicable" ? 0 : report.conformanceLevel;
+    if (confirmed < options.minLevel) {
+      console.error(
+        `Confirmed level ${report.conformanceLevel} is below required minimum ${options.minLevel}. ` +
+        "Note: Levels 1 and 3 require observing a live refusal (e.g. a 429) and cannot be confirmed passively."
+      );
+      process.exit(2);
+    }
+  }
 }
 
 module.exports = {
+  main,
   parseArgs,
   checkRefusalBody,
   checkResponseBody,

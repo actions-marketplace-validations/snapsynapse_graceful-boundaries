@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gracefulboundaries.dev/schema/limits.schema.json",
+  "title": "Graceful Boundaries limits discovery response",
+  "description": "Response shape for the limits discovery endpoint (GET /api/limits or GET /.well-known/limits) per Graceful Boundaries. Spec: https://gracefulboundaries.dev/spec",
+  "type": "object",
+  "required": ["service", "description", "limits"],
+  "properties": {
+    "service": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Service name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the service does."
+    },
+    "conformance": {
+      "type": "string",
+      "enum": ["not-applicable", "none", "level-1", "level-2", "level-3", "level-4"],
+      "description": "Self-declared conformance level. A self-assertion; external agents validate it against actual behavior."
+    },
+    "changelog": {
+      "type": "string",
+      "description": "URL to a changelog resource for limit changes. Must be a relative path or same-origin absolute URL."
+    },
+    "feed": {
+      "type": "string",
+      "description": "URL to a feed (JSON Feed, Atom, RSS) for change notifications. Must be a relative path or same-origin absolute URL."
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Named extension discovery URLs (e.g. actionBoundaries). Each value must be a relative path or same-origin absolute URL. Presence does not affect Level 1-4 conformance."
+    },
+    "limits": {
+      "type": "object",
+      "description": "Map of endpoint keys to documented endpoint limits. May be empty for not-applicable or none declarations.",
+      "additionalProperties": { "$ref": "#/$defs/endpointEntry" }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "endpointEntry": {
+      "type": "object",
+      "required": ["endpoint", "method", "limits"],
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Path pattern, e.g. /api/scan."
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "description": "HTTP method."
+        },
+        "limits": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/limitEntry" }
+        },
+        "note": {
+          "type": "string",
+          "description": "Additional context for this endpoint."
+        },
+        "agentCapable": {
+          "type": "boolean",
+          "description": "Reserved (roadmap): whether the endpoint is designed for machine consumption."
+        }
+      },
+      "additionalProperties": true
+    },
+    "limitEntry": {
+      "type": "object",
+      "required": ["type", "maxRequests", "windowSeconds", "description"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Limit category: ip-rate, key-rate, user-rate, global-rate, resource-dedup, cooldown, concurrency, quota, cost-limit, burst-rate, or a service-defined type."
+        },
+        "limitId": {
+          "type": "string",
+          "description": "Stable identifier for this specific limit."
+        },
+        "limitType": {
+          "type": "string",
+          "description": "Explicit copy of the limit type when multiple limits interact."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Subject of the limit: ip, key, user, resource, or global."
+        },
+        "maxRequests": {
+          "type": "number",
+          "description": "Maximum requests in the window."
+        },
+        "windowSeconds": {
+          "type": "number",
+          "description": "Window duration in seconds."
+        },
+        "costMetric": {
+          "type": "string",
+          "description": "Resource unit for quota or cost limits: tokens, credits, bytes, dollars."
+        },
+        "maxInputBytes": { "type": "number" },
+        "maxInputTokens": { "type": "number" },
+        "maxOutputTokens": { "type": "number" },
+        "maxDurationSeconds": { "type": "number" },
+        "maxQueueDepth": { "type": "number" },
+        "windowResetAt": {
+          "type": ["string", "number"],
+          "description": "ISO timestamp or Unix timestamp for the window reset."
+        },
+        "returnsCached": {
+          "type": "boolean",
+          "description": "For resource-dedup limits: repeat requests return the cached result as a 200 instead of a 429."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable explanation."
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

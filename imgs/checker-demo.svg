@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="14" role="img" aria-label="Terminal output of the Graceful Boundaries conformance checker. Siteline confirms Level 4. Google confirms Level 0.">
+  <rect width="880" height="560" rx="10" fill="#1e2227"/>
+  <circle cx="24" cy="22" r="6" fill="#ff5f57"/>
+  <circle cx="44" cy="22" r="6" fill="#febc2e"/>
+  <circle cx="64" cy="22" r="6" fill="#28c840"/>
+  <text x="440" y="27" fill="#8b949e" text-anchor="middle" font-size="12">npx graceful-boundaries check</text>
+  <g fill="#c9d1d9">
+    <text x="24" y="64"><tspan fill="#7ee787">$</tspan> npx graceful-boundaries check https://siteline.to</text>
+    <text x="24" y="96">Graceful Boundaries conformance check: https://siteline.to</text>
+    <text x="24" y="116" fill="#484f58">============================================================</text>
+    <text x="24" y="144" fill="#8b949e">Limits Discovery:</text>
+    <text x="40" y="166">/api/limits: <tspan fill="#7ee787">FOUND</tspan> (5 endpoints, well-formed: true, cacheable: true)</text>
+    <text x="40" y="188" fill="#8b949e">/.well-known/limits: NOT FOUND (404)</text>
+    <text x="24" y="222">Confirmed conformance level: <tspan fill="#7ee787" font-weight="bold">Level 4</tspan></text>
+    <text x="24" y="252" fill="#8b949e">Notes:</text>
+    <text x="40" y="274" fill="#8b949e">- Discovery endpoint verified. At least Level 2 (Discoverable).</text>
+    <text x="40" y="296" fill="#8b949e">- Level 4 (Proactive) confirmed: /api/scan returns RateLimit headers</text>
+    <text x="52" y="318" fill="#8b949e">(limit=10, remaining=8, reset=2671).</text>
+    <text x="24" y="366"><tspan fill="#7ee787">$</tspan> npx graceful-boundaries check https://google.com</text>
+    <text x="24" y="398">Graceful Boundaries conformance check: https://google.com</text>
+    <text x="24" y="418" fill="#484f58">============================================================</text>
+    <text x="24" y="446" fill="#8b949e">Limits Discovery:</text>
+    <text x="40" y="468" fill="#8b949e">/api/limits: NOT FOUND (404)</text>
+    <text x="40" y="490" fill="#8b949e">/.well-known/limits: NOT FOUND (404)</text>
+    <text x="24" y="524">Confirmed conformance level: <tspan fill="#f85149" font-weight="bold">Level 0</tspan></text>
+  </g>
+</svg>

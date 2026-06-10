@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gracefulboundaries.dev/schema/refusal.schema.json",
+  "title": "Graceful Boundaries non-success response",
+  "description": "Core structured refusal shape for all non-success HTTP responses (400, 401, 403, 404, 405, 410, 422, 429, 500, 502, 503, 504) per Graceful Boundaries. Spec: https://gracefulboundaries.dev/spec",
+  "type": "object",
+  "required": ["error", "detail", "why"],
+  "properties": {
+    "error": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Stable machine-parseable error category in snake_case, e.g. rate_limit_exceeded, invalid_input, not_found."
+    },
+    "detail": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable explanation of what happened and how to proceed."
+    },
+    "why": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The security, policy, or operational reason this response exists. Must explain the purpose, not restate the error."
+    },
+    "limit": {
+      "type": "string",
+      "description": "The limit that was exceeded, in human-readable form. Required for 429 responses (see refusal-429.schema.json)."
+    },
+    "retryAfterSeconds": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Seconds until the caller can retry. Required for 429 responses; optional for availability errors."
+    },
+    "limitId": {
+      "type": "string",
+      "description": "Stable identifier for the specific limit exceeded."
+    },
+    "limitType": {
+      "type": "string",
+      "description": "Type of the limit exceeded, such as ip-rate or cost-limit."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Subject of the exceeded limit, such as ip, key, user, resource, or global."
+    },
+    "windowResetAt": {
+      "type": ["string", "number"],
+      "description": "ISO timestamp or Unix timestamp for the window reset."
+    },
+    "cached": {
+      "type": "boolean",
+      "description": "Whether a cached result is available."
+    },
+    "cachedResultUrl": {
+      "type": "string",
+      "description": "URL to retrieve the cached result. Must be a relative path or same-origin absolute URL (SC-6)."
+    },
+    "alternativeEndpoint": {
+      "type": "string",
+      "description": "A different endpoint that may serve the need. Must be a relative path or same-origin absolute URL (SC-6)."
+    },
+    "upgradeUrl": {
+      "type": "string",
+      "description": "Where to get higher limits."
+    },
+    "humanUrl": {
+      "type": "string",
+      "description": "Browser-friendly URL for human follow-up."
+    },
+    "field": {
+      "type": "string",
+      "description": "Which input field failed validation (input class)."
+    },
+    "expected": {
+      "type": "string",
+      "description": "What valid input looks like, stated positively (SC-3)."
+    },
+    "allowedMethods": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Which HTTP methods are accepted (405 responses)."
+    },
+    "authUrl": {
+      "type": "string",
+      "description": "Where to obtain credentials (access class)."
+    },
+    "scanAvailable": {
+      "type": "boolean",
+      "description": "Whether the caller can create the missing resource (not-found class)."
+    },
+    "scanUrl": {
+      "type": "string",
+      "description": "Endpoint to create the missing resource. Not a trust bypass (SC-8)."
+    },
+    "statusUrl": {
+      "type": "string",
+      "description": "Status page or health check endpoint (availability class)."
+    }
+  },
+  "additionalProperties": true
+}

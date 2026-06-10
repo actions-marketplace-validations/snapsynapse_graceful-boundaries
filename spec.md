@@ -1,7 +1,7 @@
 # Graceful Boundaries
 
-**Version:** 1.4.1
-**Date:** 2026-06-03
+**Version:** 1.5.0
+**Date:** 2026-06-09
 **Status:** Released
 **License:** CC-BY-4.0 (spec.md, docs/) + MIT (code in evals/)
 **URL:** https://gracefulboundaries.dev

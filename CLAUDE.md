@@ -6,7 +6,14 @@ A specification for how services communicate their operational limits to humans 
 
 - `spec.md` — the full specification (conformance levels, response classes, security considerations)
 - `evals/check.js` — live conformance checker and shared validation library
-- `evals/test-*.js` — unit tests (200 tests across 9 files)
+- `evals/test-*.js` — unit tests (250 tests across 12 files)
+- `evals/test-agent-behavior.js` — agent compliance suite (exports fixtures + runner for agent developers)
+- `schema/` — published JSON Schemas (refusal, 429 refusal, limits discovery), served at gracefulboundaries.dev/schema/
+- `examples/middleware/` — drop-in middleware (Express, FastAPI, Workers, Hono)
+- `examples/limits/` — worked limits.json discovery examples, schema-validated in tests
+- `bin/cli.js` — npx entry point (`npx graceful-boundaries check <url>`)
+- `action.yml` — composite GitHub Action wrapping the checker (CI conformance gate)
+- `ADOPTERS.md` — adopter registry and badge endpoints (`badges/*.json`)
 - `SECURITY-AUDIT.md` — threat model and security analysis (SC-1 through SC-16)
 - `SKILL.md` — agentic skill for conformance assessment
 - `SKILL-builder.md` — agentic skill for implementing the spec in code
@@ -17,11 +24,13 @@ A specification for how services communicate their operational limits to humans 
 ## Commands
 
 ```bash
-npm test                                          # run all 200 unit tests
+npm test                                          # run all 250 unit tests
 node evals/check.js <url>                         # check a live service
 node evals/check.js <url> --json                  # machine-readable output
 node evals/check.js <url> --limits-path /custom   # custom limits endpoint path
 node evals/check.js <url> --check-cloaking        # advisory agent-signaled content check
+node evals/check.js <url> --min-level 2           # nonzero exit below the given level (CI gate)
+npx graceful-boundaries check <url>               # same checker via npm (after publish)
 python3 /path/to/guidecheck/scripts/guidecheck_verify.py assistant-guide.txt
 ```
 

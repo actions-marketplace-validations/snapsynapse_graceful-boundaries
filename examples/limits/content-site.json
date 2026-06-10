@@ -1,0 +1,44 @@
+{
+  "service": "Example Publication",
+  "description": "News and reference site. Content is for reading; bulk retrieval is rate limited and a licensed feed exists for high-volume use.",
+  "conformance": "level-2",
+  "limits": {
+    "pages": {
+      "endpoint": "/*",
+      "method": "GET",
+      "limits": [
+        {
+          "type": "ip-rate",
+          "limitId": "pages-ip-rate",
+          "scope": "ip",
+          "maxRequests": 300,
+          "windowSeconds": 3600,
+          "description": "300 page fetches per IP per hour. Enough for reading; not enough for site-wide scraping."
+        },
+        {
+          "type": "cooldown",
+          "limitId": "pages-cooldown",
+          "scope": "ip",
+          "maxRequests": 1,
+          "windowSeconds": 2,
+          "description": "Minimum 2 seconds between successive fetches from the same IP."
+        }
+      ],
+      "note": "For bulk or commercial use, request the licensed content feed: https://example.com/licensing"
+    },
+    "search": {
+      "endpoint": "/api/search",
+      "method": "GET",
+      "limits": [
+        {
+          "type": "ip-rate",
+          "limitId": "search-ip-rate",
+          "scope": "ip",
+          "maxRequests": 30,
+          "windowSeconds": 3600,
+          "description": "30 searches per IP per hour."
+        }
+      ]
+    }
+  }
+}
