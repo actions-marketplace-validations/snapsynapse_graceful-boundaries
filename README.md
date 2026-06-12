@@ -141,7 +141,7 @@ npx graceful-boundaries check https://your-service.com --check-cloaking
 
 ![Checker output: Siteline confirms Level 4, Google confirms Level 0](imgs/checker-demo.svg)
 
-Or clone and run from the project root with `node evals/check.js <url>`. Run the unit test suite (250 tests, no dependencies):
+Or clone and run from the project root with `node evals/check.js <url>`. Run the unit test suite (256 tests, no dependencies):
 
 ```bash
 npm test
@@ -190,7 +190,7 @@ The shortest path from "read the spec" to "conformant service":
 
 1. **Copy a middleware example** -- dependency-free Level 2 implementations (Level 4 with one flag) for [Express, FastAPI, Cloudflare Workers, and Hono](examples/middleware/).
 2. **Copy the nearest limits.json** -- complete discovery responses for a [SaaS API, free scanner, LLM API, and content site](examples/limits/).
-3. **Validate your bodies** -- published [JSON Schemas](schema/) for refusals, 429s, and the discovery endpoint, served at `https://gracefulboundaries.dev/schema/`. Importable into OpenAPI and CI validators.
+3. **Validate your body shapes** -- published [JSON Schemas](schema/) for refusals, 429s, and the discovery endpoint, served at `https://gracefulboundaries.dev/schema/`. Importable into OpenAPI and CI validators; run the checker for origin-aware SC-6 URL safety and conformance.
 4. **Verify** -- `npx graceful-boundaries check https://your-service.example`, then gate it in CI with the GitHub Action above.
 5. **Declare** -- add yourself to [ADOPTERS.md](ADOPTERS.md) and embed a [conformance badge](ADOPTERS.md#badges).
 

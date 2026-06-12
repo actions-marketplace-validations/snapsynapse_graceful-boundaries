@@ -645,7 +645,7 @@
 
 <section class="alt" id="extensions">
   <div class="container">
-    <h2>Current in v1.4</h2>
+    <h2>Current in v1.5</h2>
     <p>Graceful Boundaries 1.5 keeps the Level 1 through Level 4 conformance model unchanged and focuses on adoption tooling: an npx-runnable checker, published JSON Schemas, drop-in middleware for Express, FastAPI, Workers, and Hono, worked limits.json examples, a composite GitHub Action for CI conformance gates, an RFC 9457 compatibility profile, an agent-side compliance suite, and an adopter registry with conformance badges. No normative spec changes.</p>
 
     <div class="code-grid">
@@ -730,7 +730,7 @@
       For code samples at each level, see the <a href="https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/implementation-guide.md" target="_blank" rel="noopener">implementation guide</a>.
       Drop-in <a href="https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/middleware" target="_blank" rel="noopener">middleware examples</a> (Express, FastAPI, Workers, Hono) deliver Level 2 by copy-paste,
       <a href="https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/limits" target="_blank" rel="noopener">worked limits.json examples</a> cover common service shapes,
-      and <a href="/schema/limits.schema.json">published JSON Schemas</a> validate refusal and discovery bodies in CI.
+      and <a href="/schema/limits.schema.json">published JSON Schemas</a> validate refusal and discovery body shapes in CI; run the checker for origin-aware URL safety.
       Already on RFC 9457 Problem Details? See the <a href="https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/rfc9457-profile.md" target="_blank" rel="noopener">compatibility profile</a>.
     </p>
 
@@ -754,7 +754,7 @@ See spec for response class requirements and constructive guidance.</pre>
   <div class="container">
     <div class="eval-block">
       <h2>Evaluate your API</h2>
-      <p>The conformance checker validates any public URL against the spec. Version 1.4 includes stricter response-field checks, hardened URL checks, optional cost and quota metadata checks, advisory content-cloaking checks, and optional Action Boundaries validation. No dependencies required.</p>
+      <p>The conformance checker validates any public URL against the spec. Version 1.5 adds adoption tooling while keeping the conformance model stable: npx execution, JSON Schemas, middleware examples, worked limits.json examples, a GitHub Action gate, an RFC 9457 profile, an agent compliance suite, and adopter badges. No dependencies required.</p>
 <pre>npx graceful-boundaries check https://your-service.com
 npx graceful-boundaries check https://your-service.com --check-cloaking
 npx graceful-boundaries check https://your-service.com --min-level 2
@@ -766,7 +766,7 @@ npx graceful-boundaries check https://your-service.com --min-level 2
 # Optional: verify the assistant guide before AI-assisted work
 python3 /path/to/guidecheck/scripts/guidecheck_verify.py assistant-guide.txt</pre>
       <p class="ref">
-        Reference implementation: <a href="https://siteline.to/">Siteline</a> (Level 4). Unit suite: 250 tests.
+        Reference implementation: <a href="https://siteline.to/">Siteline</a> (Level 4). Unit suite: 256 tests.
         Implementing services are listed in <a href="https://github.com/snapsynapse/graceful-boundaries/blob/main/ADOPTERS.md" target="_blank" rel="noopener">ADOPTERS.md</a>, with embeddable conformance badges.
       </p>
       <div class="cta-row" style="margin-top: 1.5rem;">

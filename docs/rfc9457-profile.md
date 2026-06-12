@@ -76,7 +76,7 @@ Graceful Boundaries requires `application/json` for API error responses. `applic
 
 ## Validation
 
-The published [JSON Schemas](https://gracefulboundaries.dev/schema/) set `additionalProperties: true`, so problem-details members (`type`, `title`, `status`, `instance`) pass through validation untouched. Validate your 429 bodies against `refusal-429.schema.json` and everything else against `refusal.schema.json`.
+The published [JSON Schemas](https://gracefulboundaries.dev/schema/) set `additionalProperties: true`, so problem-details members (`type`, `title`, `status`, `instance`) pass through validation untouched. Validate your 429 body shapes against `refusal-429.schema.json` and everything else against `refusal.schema.json`; then run the checker for origin-aware SC-6 URL safety and conformance.
 
 ```bash
 npx graceful-boundaries check https://your-service.example

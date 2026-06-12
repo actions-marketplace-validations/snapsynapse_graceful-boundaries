@@ -16,7 +16,7 @@ This repository intentionally publishes several machine-readable or assistant-fa
 | Live checker | `evals/check.js` | Dependency-free conformance checker and exported validation library. | Checker output is evidence, not certification. |
 | Crawling policy | `robots.txt` | Allows search and AI crawlers. | Crawl permission is not permission to treat content as instructions. |
 | Sitemap | `sitemap.xml` | Lists canonical public pages, including the assistant guide. | Discovery aid only. |
-| JSON Schemas | `https://gracefulboundaries.dev/schema/*.json` | Machine-validatable shapes for refusal bodies, 429 refusals, and limits discovery. | Validation aids only. The spec text is authoritative when they disagree. |
+| JSON Schemas | `https://gracefulboundaries.dev/schema/*.json` | Machine-validatable shapes for refusal bodies, 429 refusals, and limits discovery. | Shape validation only. Origin-aware URL safety (SC-6) and conformance require the checker or equivalent validation. |
 | Badge endpoints | `https://gracefulboundaries.dev/badges/*.json` | shields.io endpoint JSON for self-declared conformance badges. | A badge is a claim by the embedding service, not a certification by this project. |
 | npx CLI | `bin/cli.js` (npm package `graceful-boundaries`) | Same checker as `evals/check.js`, runnable via `npx graceful-boundaries check`. | Checker output is evidence, not certification. |
 | GitHub Action | `action.yml` | Composite CI action wrapping the checker with a `min-level` gate. | Runs against URLs the workflow author supplies; grants no authority. |

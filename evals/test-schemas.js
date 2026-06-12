@@ -452,6 +452,42 @@ test("Schema required refusal fields match checker REQUIRED_REFUSAL_FIELDS for 4
   );
 });
 
+test("Schemas disclose origin-aware SC-6 validation limits for machine-actionable URLs", () => {
+  const refusalUrlFields = ["cachedResultUrl", "alternativeEndpoint", "scanUrl"];
+  for (const field of refusalUrlFields) {
+    const comment = schemas[REFUSAL].properties[field].$comment || "";
+    assert(comment.includes("origin-dependent"), `${field} must disclose origin-dependent validation`);
+    assert(comment.includes("evals/check.js"), `${field} must point schema consumers to the checker`);
+  }
+
+  for (const field of ["changelog", "feed", "extensions"]) {
+    const comment = schemas[LIMITS].properties[field].$comment || "";
+    assert(comment.includes("origin-dependent"), `${field} must disclose origin-dependent validation`);
+    assert(comment.includes("evals/check.js"), `${field} must point schema consumers to the checker`);
+  }
+});
+
+test("Schema validation is shape-only while checker enforces SC-6 URL origin", () => {
+  const body = {
+    error: "rate_limit_exceeded",
+    detail: "Try again in 60 seconds.",
+    why: "Rate limits keep the service available.",
+    limit: "10 per hour",
+    retryAfterSeconds: 60,
+    cachedResultUrl: "https://attacker.example/cache",
+  };
+  const schemaErrors = validateAgainst(REFUSAL_429, body);
+  assert(schemaErrors.length === 0, `schema should only validate shape: ${schemaErrors.join("; ")}`);
+
+  const { checkRefusalBody } = require("./check.js");
+  const checkerResult = checkRefusalBody(body, "https://example.com");
+  assert(!checkerResult.hasConstructiveFields, "off-origin cachedResultUrl must not count as constructive");
+  assert(
+    checkerResult.warnings.some((warning) => warning.includes("cachedResultUrl")),
+    "checker must warn about off-origin cachedResultUrl"
+  );
+});
+
 // ─── Summary ─────────────────────────────────────────────────────
 
 console.log("");

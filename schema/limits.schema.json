@@ -23,15 +23,18 @@
     },
     "changelog": {
       "type": "string",
+      "$comment": "SC-6 same-origin/relative URL safety is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "URL to a changelog resource for limit changes. Must be a relative path or same-origin absolute URL."
     },
     "feed": {
       "type": "string",
+      "$comment": "SC-6 same-origin/relative URL safety is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "URL to a feed (JSON Feed, Atom, RSS) for change notifications. Must be a relative path or same-origin absolute URL."
     },
     "extensions": {
       "type": "object",
       "additionalProperties": { "type": "string" },
+      "$comment": "SC-6 same-origin/relative URL safety for extension URLs is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "Named extension discovery URLs (e.g. actionBoundaries). Each value must be a relative path or same-origin absolute URL. Presence does not affect Level 1-4 conformance."
     },
     "limits": {

@@ -27,12 +27,17 @@ runs:
   steps:
     - name: Run conformance check
       shell: bash
+      env:
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_MIN_LEVEL: ${{ inputs.min-level }}
+        INPUT_LIMITS_PATH: ${{ inputs.limits-path }}
+        INPUT_JSON: ${{ inputs.json }}
       run: |
-        ARGS=("${{ inputs.url }}" --min-level "${{ inputs.min-level }}")
-        if [ -n "${{ inputs.limits-path }}" ]; then
-          ARGS+=(--limits-path "${{ inputs.limits-path }}")
+        ARGS=("$INPUT_URL" --min-level "$INPUT_MIN_LEVEL")
+        if [ -n "$INPUT_LIMITS_PATH" ]; then
+          ARGS+=(--limits-path "$INPUT_LIMITS_PATH")
         fi
-        if [ "${{ inputs.json }}" = "true" ]; then
+        if [ "$INPUT_JSON" = "true" ]; then
           ARGS+=(--json)
         fi
         node "${{ github.action_path }}/evals/check.js" "${ARGS[@]}"

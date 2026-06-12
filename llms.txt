@@ -24,13 +24,13 @@ Graceful Boundaries defines three requirements that existing standards address s
 - Full spec: https://github.com/snapsynapse/graceful-boundaries/blob/main/spec.md
 - Implementation guide: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/implementation-guide.md
 - Agentic surfaces disclosure: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/agentic-surfaces.md
-- Conformance checker: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/check.js (also `npx graceful-boundaries check <url>`)
-- JSON Schemas (refusal, 429 refusal, limits discovery): https://gracefulboundaries.dev/schema/
+- Conformance checker: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/check.js (also `npx graceful-boundaries check <url>`; use `--min-level 0-4` for CI gates)
+- JSON Schemas (refusal, 429 refusal, limits discovery): https://gracefulboundaries.dev/schema/ (shape validation only; use the checker for origin-aware SC-6 URL safety)
 - Middleware examples (Express, FastAPI, Workers, Hono): https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/middleware
 - Worked limits.json examples: https://github.com/snapsynapse/graceful-boundaries/tree/main/examples/limits
 - RFC 9457 compatibility profile: https://github.com/snapsynapse/graceful-boundaries/blob/main/docs/rfc9457-profile.md
 - Agent compliance suite: https://github.com/snapsynapse/graceful-boundaries/blob/main/evals/test-agent-behavior.js
-- GitHub Action (CI conformance gate): `uses: snapsynapse/graceful-boundaries@v1` with a `url` input
+- GitHub Action (CI conformance gate): `uses: snapsynapse/graceful-boundaries@v1` with `url` and optional `min-level` inputs
 - Adopters and conformance badges: https://github.com/snapsynapse/graceful-boundaries/blob/main/ADOPTERS.md
 - Assistant guide: https://gracefulboundaries.dev/.well-known/assistant-guide.txt
 - GuideCheck standard: https://guidecheck.org/

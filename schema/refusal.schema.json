@@ -52,10 +52,12 @@
     },
     "cachedResultUrl": {
       "type": "string",
+      "$comment": "SC-6 same-origin/relative URL safety is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "URL to retrieve the cached result. Must be a relative path or same-origin absolute URL (SC-6)."
     },
     "alternativeEndpoint": {
       "type": "string",
+      "$comment": "SC-6 same-origin/relative URL safety is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "A different endpoint that may serve the need. Must be a relative path or same-origin absolute URL (SC-6)."
     },
     "upgradeUrl": {
@@ -89,6 +91,7 @@
     },
     "scanUrl": {
       "type": "string",
+      "$comment": "SC-6 same-origin/relative URL safety is origin-dependent and cannot be fully enforced by this standalone schema. Use evals/check.js or equivalent origin-aware validation.",
       "description": "Endpoint to create the missing resource. Not a trust bypass (SC-8)."
     },
     "statusUrl": {

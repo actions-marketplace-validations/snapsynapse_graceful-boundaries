@@ -16,6 +16,7 @@
  *   node evals/check.js https://your-service.com --limits-path /api/limits
  *   node evals/check.js https://your-service.com --json
  *   node evals/check.js https://your-service.com --check-cloaking
+ *   node evals/check.js https://your-service.com --min-level 2
  */
 
 const REQUIRED_REFUSAL_FIELDS = ["error", "detail", "limit", "retryAfterSeconds", "why"];
@@ -33,14 +34,27 @@ const OPTIONAL_LIMIT_NUMBER_FIELDS = [
 
 function parseArgs(argv) {
   const args = argv.slice(2);
-  const options = { baseUrl: null, limitsPath: null, json: false, checkCloaking: false, minLevel: null };
+  const options = {
+    baseUrl: null,
+    limitsPath: null,
+    json: false,
+    checkCloaking: false,
+    minLevel: null,
+    errors: [],
+  };
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--limits-path" && i + 1 < args.length) {
       options.limitsPath = args[++i];
     } else if (args[i] === "--min-level" && i + 1 < args.length) {
-      const parsed = Number.parseInt(args[++i], 10);
-      options.minLevel = Number.isInteger(parsed) ? parsed : null;
+      const raw = args[++i];
+      if (!/^[0-4]$/.test(raw)) {
+        options.errors.push(`--min-level must be an integer from 0 to 4, got "${raw}"`);
+      } else {
+        options.minLevel = Number(raw);
+      }
+    } else if (args[i] === "--min-level") {
+      options.errors.push("--min-level requires a value from 0 to 4");
     } else if (args[i] === "--json") {
       options.json = true;
     } else if (args[i] === "--check-cloaking") {
@@ -932,6 +946,11 @@ function assessLevel(limitsResults, refusalCheck, proactiveHeaders) {
 
 async function main() {
   const options = parseArgs(process.argv);
+
+  if (options.errors.length > 0) {
+    for (const error of options.errors) console.error(error);
+    process.exit(1);
+  }
 
   if (!options.baseUrl) {
     console.error("Usage: node evals/check.js <base-url> [--limits-path /path] [--json] [--check-cloaking] [--min-level N]");
