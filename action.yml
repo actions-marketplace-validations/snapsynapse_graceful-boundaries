@@ -1,5 +1,5 @@
 name: "Graceful Boundaries Conformance Check"
-description: "Check a live service's Graceful Boundaries conformance level (limits discovery, structured refusals, proactive headers). Fails the job when the confirmed level is below min-level."
+description: "Check a live service's Graceful Boundaries conformance level and fail CI below a minimum level."
 author: "PAICE.work PBC"
 branding:
   icon: "shield"
