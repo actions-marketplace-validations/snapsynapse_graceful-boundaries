@@ -6,6 +6,14 @@ This project follows [Semantic Versioning](https://semver.org/). The version num
 
 ## Unreleased
 
+## [1.5.1] - 2026-06-23
+
+### Changed
+- Shortened the composite GitHub Action metadata description so the `action.yml` release metadata satisfies GitHub Marketplace's 125-character description limit.
+
+### Notes
+- No normative spec changes. This is a Marketplace packaging patch for the existing 1.5 adoption tooling.
+
 ## [1.5.0] - 2026-06-09
 
 ### Added
